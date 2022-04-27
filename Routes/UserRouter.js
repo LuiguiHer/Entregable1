@@ -1,5 +1,6 @@
 const express = require("express");
 
+// Controllers Exported 
 const {
   getAllUsers,
   createUser,
@@ -7,10 +8,13 @@ const {
   updateUser,
   deleteUser,
 } = require("../Controllers/UserController");
+
+// Middleware
 const { userExists } = require("../Middlewares/UserMiddleware");
 
 const router = express.Router();
 
+// Routers
 router.get("/", getAllUsers);
 
 router.post("/", createUser);

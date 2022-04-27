@@ -1,18 +1,20 @@
 const { User } = require("../Models/UserModel");
 
+// GET ALL
 const getAllUsers = async (req, res) => {
   try {
     const usersActive = await User.findAll({ where: { status: "ACTIVE" } });
-    const userDeleted = await User.findAll({where: { status: "deleted"}})
+    const userDeleted = await User.findAll({ where: { status: "deleted" } });
     res.status(200).json({
       usersActive,
-      userDeleted
+      userDeleted,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
+// GET BY ID
 const getUserById = async (req, res) => {
   try {
     const { user } = req;
@@ -25,6 +27,7 @@ const getUserById = async (req, res) => {
   }
 };
 
+// POST
 const createUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -37,6 +40,7 @@ const createUser = async (req, res) => {
   }
 };
 
+// PATCH
 const updateUser = async (req, res) => {
   try {
     const { user } = req;
@@ -56,6 +60,7 @@ const updateUser = async (req, res) => {
   }
 };
 
+//DELETE
 const deleteUser = async (req, res) => {
   try {
     const { user } = req;

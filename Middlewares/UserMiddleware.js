@@ -1,5 +1,6 @@
 const { User } = require("../Models/UserModel");
 
+//middleware created
 const userExists = async (req, res, next) => {
   try {
     const { id } = req.params;

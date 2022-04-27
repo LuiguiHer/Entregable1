@@ -1,19 +1,28 @@
 const { Repair } = require("../Models/RepairModel");
 
+// GET ALL
 const getAllRepairs = async (req, res) => {
   try {
-    const repairCompleted = await Repair.findAll({ where: {status:"completed"}});
-    const repairPending = await Repair.findAll({where: {status: "pending"}})
+    const repairCompleted = await Repair.findAll({
+      where: { status: "completed" },
+    });
+    const repairPending = await Repair.findAll({
+      where: { status: "pending" },
+    });
+    const repairCancelled = await Repair.findAll({
+      where: { status: "cancelled" },
+    });
     res.status(200).json({
       repairCompleted,
-      repairPending
+      repairPending,
+      repairCancelled,
     });
-    
   } catch (error) {
     console.log(error);
   }
 };
 
+//POST
 const createRepair = async (req, res) => {
   try {
     const { date, userId } = req.body;
@@ -29,6 +38,7 @@ const createRepair = async (req, res) => {
   }
 };
 
+//GET BY ID
 const getRepairById = async (req, res) => {
   try {
     const { repair } = req;
@@ -40,6 +50,7 @@ const getRepairById = async (req, res) => {
   }
 };
 
+//PATCH
 const updateRepair = async (req, res) => {
   try {
     const { repair } = req;
@@ -56,10 +67,11 @@ const updateRepair = async (req, res) => {
   }
 };
 
+//DELETE
 const deleteRepair = async (req, res) => {
   try {
     const { repair } = req;
-    await repair.update({ status: "Deleted" });
+    await repair.update({ status: "cancelled" });
 
     res.status(200).json({
       status: "success",
